@@ -26,8 +26,6 @@ statecraft-video-script/
     case-study-before-after.md   a vague script, why it fails, and a self-contained rewrite (rewrite passes the checker)
 ```
 
-`_private/` (not published) holds the converted original script and frame notes for the maintainer of this draft.
-
 ## How it was grounded
 
 - The project's own rules: `docs/WRITING_GUIDE.md`, `docs/CONTENT_POLICY.md`, the `statecraft-writing-voice` skill, `docs/event-videos.md`, `docs/RELEASING.md`, `docs/steam/*`, `docs/oss/DECISIONS.md`, `README.md`.
