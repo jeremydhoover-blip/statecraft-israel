@@ -1,7 +1,7 @@
-# UI microcopy guide for Statecraft: Israel (draft v0.2)
+# UI microcopy guide for Statecraft: Israel (draft v0.3)
 
 Status: DRAFT for discussion. Not approved by the maintainer or by a native Hebrew reviewer. 
-Date: 15 October 2026. Evidence date: strings snapshot of `upstream/main` 50ba5d5c, 15 October 2026 (218 keys in each language).
+Date: 15 October 2026. Evidence date: strings snapshot of `upstream/main` 835760f5, 15 October 2026 (222 keys in English, 222 in Hebrew). Version 0.2 used 50ba5d5c. The maintainer's #630, merged on 15 October, settled the capitalisation rule (UI-02) and the wording of two refusals (UI-07), so those two rules below are updated. Strings added since v0.2 and not yet reviewed against the guide: `hud.score`, the `minimap.*` tooltips, and the icon-only navigation buttons of #398, whose names are hidden text and tooltips.
 
 This guide covers short player-facing text: labels, buttons, status lines, toasts, refusals, errors, hints and empty states. It does not cover event card prose (`docs/WRITING_EVENTS.md`, `docs/WRITING_GUIDE.md`) or historical sourcing (`docs/CONTENT_POLICY.md`). Those stay as they are.
 
@@ -21,7 +21,7 @@ Rule status legend: **observed** (already the practice, now written down), **pro
 Use when writing or reviewing short player-facing text for Statecraft: Israel. Never present a proposal as an approved rule. Never finalise Hebrew; flag it for a native reviewer.
 
 1. Plain, direct, sober. Name the thing and the number. No filler, no drama (UI-01).
-2. Sentence case for phrases and sentences. Named labels keep the form they have: "End Turn", "New Game", "Public Support" (UI-02, the rule is still to be confirmed).
+2. Sentence case for phrases and sentences. Labels, button names included, are sentence case too: "End turn", "New game", "Public support" (UI-02, settled in #630).
 3. "Label: value" for facts, a middle dot between facts on one line (UI-03).
 4. Counts as "Label: N". No "(s)" (UI-04).
 5. A refusal says what could not be done, the rule that blocked it, and what the player can do next (UI-05).
@@ -46,16 +46,15 @@ Status: observed. Reason: the project voice (`docs/WRITING_GUIDE.md`) is direct 
 Check: manual.
 
 ### UI-02 Capitalisation: one style per element type
-Status: proposed, maintainer. Reason: Apple asks for one capitalisation style per element type, and Google says a button named in running text is written as it appears. The file is mostly sentence case, but six two-word labels are Title Case, and so the rule is not stated anywhere.
-- Title Case today: "Public Support", "International Standing", "Foreign Currency" (the top-bar captions), "New Game" (`hud.new_game`, `start.new_game`), "End Turn" (`hud.end_turn`). "Air Force" is a proper name and is not counted.
-- Sentence case today: "Submit the budget", "Lower the level", "Raise the level", "Play the recording", "Why did this happen?", and "Decision waiting".
-- The content names behind the meters are sentence case ("International standing", "Foreign currency" in `model.yaml`), so the same meter shows two styles depending on the file.
-- The owner's decision text for the resource layer writes "Public support" and "Social cohesion" in sentence case, where the top bar writes "Public Support". The resource names become strings when the loop lands, so this is the moment to decide.
-- "Submitted: takes effect at End Turn" (`budget.queued`) names the button as it appears, in the middle of a sentence-case line. That follows the Google rule.
-- Option A: Title Case for a name that other text refers to (a screen, a meter, a button such as End Turn), sentence case for a phrase that describes an action. This matches what the file mostly does. Option B: sentence case everywhere, with the two named buttons as the stated exception. The Hebrew has no capitals, so this is an English-only decision.
-Check: a pattern search over the strings files: six hits, plus "Air Force".
+Status: adopted (maintainer, #630, merged 15 October 2026). Reason: Apple asks for one capitalisation style per element type, and Google says a button named in running text is written as it appears. Version 0.2 found six two-word labels in Title Case among sentence-case strings. #630 changed them.
+- Sentence case now, everywhere: "Public support", "International standing", "Foreign currency" (the top-bar captions), "New game" (`hud.new_game`, `start.new_game`), "End turn" (`hud.end_turn`). "Air Force" is a proper name and stays.
+- The top-bar captions are the content display names as written, so the same meter shows one style in the file and in the content ("International standing", "Foreign currency" in `model.yaml`). The test is `HudTests.TopBarCaptionsAreTheContentNames`.
+- A button named in running text is written as the button shows it: "Submitted: takes effect at End turn" (`budget.queued`).
+- The owner's decision text for the resource layer writes "Public support" and "Social cohesion" in sentence case, which now matches the top bar.
+- The Hebrew has no capitals, so the rule is for English only.
+Check: a pattern search over the strings files: no hits expected, apart from "Air Force". A hit is a regression.
 
-The glossary entry `label-capitalisation` carries the same question.
+The glossary entry `label-capitalisation` records the same decision.
 
 ### UI-03 "Label: value", with a middle dot between facts
 Status: observed. Reason: the file already does this, and it keeps lines scannable.
@@ -87,17 +86,17 @@ Status: proposed. Reason: GOV.UK lists "valid", "invalid", "please", "sorry", "o
 Check: a pattern search over the strings files: one hit today.
 
 ### UI-07 Raw errors never reach the player
-Status: proposed, maintainer. Reason: a raw exception message or a content id is developer text. CONTRIBUTING rule 4 already says player text has no internal ids. The project already converts causes in two places: start-up failures go through `GameBoot.ForPlayer(reason)`, and an unknown save failure shows the fixed reason "the file could not be read or replayed" (`save.reason_other`). The order messages are the exception.
+Status: partly adopted (maintainer, #630): the raw text is gone from the two refusals below; a next-step wording is still open. Reason: a raw exception message or a content id is developer text. CONTRIBUTING rule 4 already says player text has no internal ids. The project already converts causes in two places: start-up failures go through `GameBoot.ForPlayer(reason)`, and an unknown save failure shows the fixed reason "the file could not be read or replayed" (`save.reason_other`). The order messages were the exception until #630.
 - Good: `save.reason_other`, a fixed, player-worded reason used when the cause is not a known save error.
-- Weak: "The turn could not run: {0}" (`order.failed`): the code fills `{0}` with the raw exception message, and `ToastPresenter` shows every rejection through `toast.refused`, so the player reads "Not done: The turn could not run: <raw exception text>".
-- Weak: "Unknown {0} '{1}'" (`order.unknown`): prints a content id; straight quotes around a raw value. Since the pioneer orders (#378) the same string also covers unit, pioneer-work and site ids.
-- Candidate rewrite for `order.failed`: "The turn could not run and your orders were cleared. Give them again and end the turn." The code already clears the queue on this failure and logs the exception, so the player loses nothing by not seeing the technical text. The candidate needs Eyal's agreement and a code change.
+- Fixed in #630: `order.failed` is now "The turn could not run". Before, the code filled `{0}` with the raw exception message and `ToastPresenter` showed it through `toast.refused`, so the player read "Not done: The turn could not run: <raw exception text>". The message now stays in the log (`SimBridge.cs`, comment citing #622).
+- Fixed in #630: `order.unknown` is now "Unknown {0}", the kind of thing only. The id goes to the log (`UnityEngine.Debug.Log`). The same string also covers the kinds of the later orders: city, training and cohort.
+- Still open: "The turn could not run" gives the player no next step. A candidate: "The turn could not run and your orders were cleared. Give them again and end the turn." The earlier code cleared the queue on this failure; check that it still does before using the sentence. It needs Eyal's agreement and a code change.
 Check: manual; the checker lists every error string that carries a placeholder (UI-05 groups).
 
 ### UI-08 End punctuation
 Status: observed, maintainer to confirm. Reason: in the English file, the nine strings that stand alone as messages all end with a period, and the strings that are labels, status lines or inserted into another string do not. The five `order.*` refusals have no period because they appear after "Not done: ".
 - With period (standalone): "Nothing notable happened this turn.", "The recording could not be played.", "Your game could not be saved.", "Statecraft could not start: {0}. Reload the page."
-- Without (fragments and status lines): "Level {0} of 5", "Ordered: level {0} to {1}", "Submitted: takes effect at End Turn".
+- Without (fragments and status lines): "Level {0} of 5", "Ordered: level {0} to {1}", "Submitted: takes effect at End turn".
 - Exceptions to settle: "Click the map to inspect a hex" (`info.hint`), a standalone hint with no period; and sentence-like status lines such as "If full war goes on, the UN imposes a ceasefire in {0} weeks" (`defence.ceasefire`) and "The UN ceasefire clock stops if the level is lowered" (`defence.ceasefire_stops`). These last two look like tooltips, and a tooltip is a separate element type, so the rule could say so.
 Check: a pattern search over the strings files.
 
@@ -132,7 +131,7 @@ Check: the repo's own tests, plus a pattern search over the strings files for ty
 ### UI-14 Use the glossary's terms
 Status: proposed. Reason: terminology drifts between files and between English and Hebrew (see the glossary). A string should use the preferred term for its concept.
 - Spelling: the UI is British ("Defence"), and an office keeps the official US spelling of its title ("Minister of Defense"). The maintainer wrote this rule in a comment in `content/offices.yaml` ("Spelling is deliberate, do not \"fix\" it"), so `defence.command` ("Minister of Defense {0} · Chief of Staff {1}") follows it. The check script skips "Minister of Defense" for that reason. The open point is only that the rule lives in a YAML comment, not in a style document.
-- Resource and meter names: the owner decided on 15 October that the five resources are Money, Food, Arms, Social cohesion and International Support, with approval shown as Public support (`docs/gdd/cutover-resource-layer.md`). The top bar still says Treasury, International Standing and Public Support until the loop lands. The glossary carries each name under `resources-and-meters`.
+- Resource and meter names: the owner decided on 15 October that the five resources are Money, Food, Arms, Social cohesion and International Support, with approval shown as Public support (`docs/gdd/cutover-resource-layer.md`). The top bar still says Treasury, International standing and Public support until the loop lands. The glossary carries each name under `resources-and-meters`.
 Check: a pattern search over the strings files; the glossary lists the terms.
 
 ### UI-15 English and Hebrew keys and placeholders match
@@ -167,18 +166,18 @@ Check: manual.
 | `boot.failed` | Statecraft could not start: {0}. Reload the page. | Good (the `{0}` comes from `GameBoot.ForPlayer`) | UI-05, UI-07 |
 | `save.reason_other` | the file could not be read or replayed | Good, a fixed player reason | UI-07 |
 | `why.empty` | Nothing has happened yet: end the turn to see its causes. | Good, empty state with a next step | UI-10 |
-| `budget.queued` | Submitted: takes effect at End Turn | Good, state and consequence | UI-02, UI-03 |
+| `budget.queued` | Submitted: takes effect at End turn | Good, state and consequence | UI-03 |
 | `budget.unsaved` | Changed: submit to put it to the vote | Good, state and next step | UI-05 |
 | `event.more` (en) | {0} more decision(s) waiting | Weak | UI-04 |
 | `order.invalid` | That order is not valid | Weak | UI-06, UI-07 |
-| `order.failed` | The turn could not run: {0} | Weak, raw exception text | UI-07 |
-| `order.unknown` | Unknown {0} '{1}' | Weak, raw content id | UI-07 |
+| `order.failed` | The turn could not run | Fixed in #630 (no raw text), no next step | UI-07 |
+| `order.unknown` | Unknown {0} | Fixed in #630 (kind only) | UI-07 |
 | `order.no_attention` | Not enough attention (need {0:0.0}, have {1:0.0}) | Mixed, no next step, repeats "Not" after "Not done:" | UI-05 |
 | `save.write_failed` | Your game could not be saved. | Weak, no why or next step | UI-05 |
 | `info.hint` | Click the map to inspect a hex | Exception to settle | UI-08 |
 | `cabinet.majority` | Majority: {0} {1} | Reads as a holding; candidate "Needed for a majority: {0} {1}" | UI-03 |
 | `hud.say_point` | {0:0} point | Good, the two-key plural (with `hud.say_points`) | UI-17 |
-| `hud.caption.support` | Public Support | Title Case among sentence-case strings | UI-02 |
+| `hud.caption.support` | Public support | Sentence case since #630 | UI-02 |
 | `info.control_none` | No sourced front line here on this date | Good, says what is missing | UI-10 |
 | `info.localities` (he) | יישובים ב-1948: {0} | Hyphen where the Academy points to the maqaf | UI-16 |
 
@@ -187,7 +186,7 @@ Check: manual.
 Run in order. A "no" is a finding, cited by rule ID.
 
 1. Does it say plainly what it means, with the number or the name (UI-01)?
-2. Does it follow the capitalisation rule once confirmed (UI-02)? Until then, sentence case for phrases and the existing names for labels.
+2. Does it follow the capitalisation rule (UI-02): sentence case for every label, button names included?
 3. Facts as "Label: value", joined with a middle dot (UI-03)?
 4. If it contains a count, is it "Label: N" with no "(s)" (UI-04, UI-17)?
 5. If it is a refusal or an error: does it say what could not be done, why, and what the player can do next (UI-05)?
@@ -206,7 +205,7 @@ Run in order. A "no" is a finding, cited by rule ID.
 ## Open decisions
 
 For the maintainer:
-- Confirm the punctuation rule (UI-08) and decide the capitalisation rule (UI-02, glossary `label-capitalisation`).
+- Confirm the punctuation rule (UI-08). The capitalisation rule (UI-02, glossary `label-capitalisation`) is settled by #630.
 - Whether to apply the existing convert-for-the-player pattern to the order messages (UI-05, UI-07). The Hebrew `order.no_attention` is pinned in a test, so a rewrite needs that test updated.
 - Whether the two-key plural (`hud.say_point`, `hud.say_points`) is enough, or a general mechanism is wanted (UI-04, UI-17).
 - Where the spelling rule is written: today only in a comment in `content/offices.yaml` (UI-14).

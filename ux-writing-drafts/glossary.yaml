@@ -25,10 +25,10 @@ conventions:
   decision_owner: Eyal
 - id: button-names
   status: preferred
-  summary: Named buttons are capitalised in running text ('takes effect at End Turn', 'Press New Game again'), while the action
-    described in general is lowercase ('end the turn to see its causes'). This looks deliberate and follows the Google rule
-    that a UI label is written as it appears.
-  recommendation: Write it down as the rule.
+  summary: 'A named button is written in running text as the button shows it, in sentence case since #630 (''takes effect
+    at End turn'', ''Press New game again''), while the action described in general is lowercase (''end the turn to see its
+    causes''). This follows the Google rule that a UI label is written as it appears.'
+  recommendation: Keep it as the rule. New buttons follow it.
   decision_owner: Eyal
 - id: counts
   status: preferred
@@ -48,15 +48,12 @@ conventions:
     the Hebrew guide's date and number item. Money is still open.
   decision_owner: Eyal
 - id: label-capitalisation
-  status: decision-needed
-  summary: 'Static labels mix two styles. Title Case: ''New Game'', ''End Turn'', ''Public Support'', ''International Standing'',
-    ''Foreign Currency''. Sentence case: ''Submit the budget'', ''Lower the level'', ''Raise the level'', ''Play the recording'',
-    ''Why did this happen?''. The model names are sentence case (''International standing'', ''Foreign currency''), and ''DRAFT''
-    on a decision card is in capitals. The Hebrew has no capitals, so the question is English only.'
-  recommendation: 'Write one rule. One option: Title Case for the name of a screen, a meter or a button that other text names
-    (''End Turn'', ''New Game''), sentence case for a phrase that describes an action. The other: sentence case everywhere,
-    with the two named buttons as the stated exception. The rule should also say which style the content names follow when
-    the top bar shows them.'
+  status: preferred
+  summary: 'Settled by the maintainer in #630 (merged 15 October 2026): every static label is sentence case, button names
+    included (''New game'', ''End turn'', ''Public support'', ''International standing'', ''Foreign currency''). The top-bar
+    captions are the content display names as written (the test is HudTests.TopBarCaptionsAreTheContentNames). ''DRAFT'' on
+    a decision card stays in capitals. The Hebrew has no capitals, so the rule is for English only.'
+  recommendation: Keep it as the rule. A new label, caption or button follows it, and so does text that names one.
   decision_owner: Eyal
 concepts:
 - id: security-level
@@ -210,12 +207,12 @@ concepts:
   - ui
   - docs
   en:
-    preferred: End Turn (the button), 'end the turn' (the action)
+    preferred: End turn (the button), 'end the turn' (the action)
     avoid: []
     in_use:
-    - form: End Turn
+    - form: End turn
       where: strings.en.yaml hud.end_turn
-    - form: takes effect at End Turn
+    - form: takes effect at End turn
       where: strings.en.yaml budget.queued
     - form: end the turn to see its causes
       where: strings.en.yaml why.empty
@@ -819,7 +816,7 @@ concepts:
       where: README.md
     - form: made with AI video tools ... it is not in-game footage
       where: README.md, site press page
-    - form: a short, silent AI-generated loop, and a few historical orders show a short AI-generated clip at End Turn, both
+    - form: a short, silent AI-generated loop, and a few historical orders show a short AI-generated clip at End turn, both
         labelled as such
       where: README.md
     - form: no caption is burned into the video itself
@@ -835,7 +832,7 @@ concepts:
   recommendation:
     en: 'Keep the label wording. The statements now agree: on 14 October the owner removed the caption burned into the clips,
       and the store-page draft says so while saying the game''s UI labels each clip ''AI-generated illustration'' while it
-      plays, which is the string `event.ai_label`. The README says the loops and End Turn clips are ''labelled as such'',
+      plays, which is the string `event.ai_label`. The README says the loops and End turn clips are ''labelled as such'',
       which the UI label satisfies. The ''not gameplay'' wording stays beside any concept art or trailer.'
     he: No change proposed. The Hebrew README makes the same 'labelled' statement and the Hebrew label exists.
     reasons:
@@ -886,8 +883,8 @@ concepts:
     en: 'The rule is already the owner''s and the strings follow it. Write it down outside a YAML comment (conventions: spelling),
       and decide what the GDD, which mixes both spellings, follows. A placeholder such as {defense_minister} is an office
       id and a code question, not player text.'
-    he: 'Gershayim: the strings use the typographic ״ while the Academy''s published examples use a straight quote. Choose
-      once and apply it in every file.'
+    he: 'Gershayim: since #630 the strings and the content use the typographic ״ in every file, while the Academy''s published
+      examples use a straight quote. The native reviewer confirms the choice (#564).'
     reasons:
     - The strings and offices.yaml agree; only the GDD and the placeholder differ.
     - The comment says the title is a proper noun, so it keeps its official spelling.
@@ -925,12 +922,12 @@ concepts:
     - It is a different measure from Public support, which the same decision names as approval.
   decision_owner: Eyal
   pending_gdd: All values and effects are open.
-  notes: 'The earlier question, whether the top bar''s Public Support is the GDD''s social cohesion, is answered by the cutover
+  notes: 'The earlier question, whether the top bar''s Public support is the GDD''s social cohesion, is answered by the cutover
     page: approval appears as Public support, and Social cohesion is the morale indicator. They are two measures.'
 - id: international-support
   status: pending-gdd
   category: game-system
-  definition: How other countries stand toward Israel. The build shows it on the top bar as International Standing, from the
+  definition: How other countries stand toward Israel. The build shows it on the top bar as International standing, from the
     indicator intl_standing. The owner decided on 15 October that International Support is the `intl_standing` indicator under
     its player name.
   scope:
@@ -942,7 +939,7 @@ concepts:
     preferred: International Support
     avoid: []
     in_use:
-    - form: International Standing
+    - form: International standing
       where: strings.en.yaml hud.caption.standing
     - form: 'id: intl_standing, base: 0.50, name: International standing'
       where: content/model.yaml
@@ -962,9 +959,9 @@ concepts:
     - form: The Hebrew words are כסף, מזון, נשק and תמיכה בינלאומית, with Social cohesion staying לכידות חברתית
       where: docs/gdd/cutover-resource-layer.md
   recommendation:
-    en: Use 'International Support', as decided. When the cutover lands, the top-bar caption 'International Standing' and
-      the content name 'International standing' should follow, so the meter has one name in the UI, the content, the GDD and
-      the events. Capitalisation follows the label rule.
+    en: Use 'International Support', as decided. When the cutover lands, the top-bar caption and the content name 'International
+      standing' should follow, so the meter has one name in the UI, the content, the GDD and the events. Capitalisation follows
+      the label rule.
     he: The owner's word is 'תמיכה בינלאומית'. The top-bar caption today is 'מעמד בינלאומי'. The reviewer confirms the new
       word and the change.
     reasons:
@@ -1050,11 +1047,11 @@ concepts:
       where: strings.en.yaml hud.caption.immigration
     - form: Security
       where: strings.en.yaml hud.caption.security
-    - form: Public Support
+    - form: Public support
       where: strings.en.yaml hud.caption.support
-    - form: International Standing
+    - form: International standing
       where: strings.en.yaml hud.caption.standing
-    - form: Foreign Currency
+    - form: Foreign currency
       where: strings.en.yaml hud.caption.fx
     - form: '| Money | Funds development'
       where: docs/GDD.md (resource table)
@@ -1091,9 +1088,9 @@ concepts:
   recommendation:
     en: 'The owner decided the names on 15 October (the cutover page records them): Money, Food, Arms, Social cohesion and
       International Support, with approval shown as Public support. Food and Arms are national pools; Social cohesion is the
-      `morale` indicator and International Support is the `intl_standing` indicator, each under its player name. What is left
-      is wording: capitalisation (the decision text writes ''Public support'', the top bar writes ''Public Support''), and
-      whether the top-bar captions ''Treasury'' and ''International Standing'' change to the new names when the loop lands.'
+      `morale` indicator and International Support is the `intl_standing` indicator, each under its player name. Capitalisation
+      is settled (#630: sentence case, so the top bar and the decision text both write ''Public support''). What is left is
+      whether the top-bar captions ''Treasury'' and ''International standing'' change to the new names when the loop lands.'
     he: The owner's words are כסף, מזון, נשק, תמיכה בינלאומית and לכידות חברתית. The reviewer confirms them and says whether
       the top-bar caption אוצר stays beside כסף.
     reasons:
@@ -1165,7 +1162,7 @@ concepts:
     - fx and forex in player text
     - reserves for this meaning (see 'reserves')
     in_use:
-    - form: Foreign Currency
+    - form: Foreign currency
       where: strings.en.yaml hud.caption.fx
     - form: foreign currency {2}
       where: strings.en.yaml budget.money
@@ -1187,9 +1184,9 @@ concepts:
       where: strings.he.yaml budget.money
   recommendation:
     en: 'Say ''foreign currency'' in player text. Capitalisation follows the label rule (conventions: label-capitalisation):
-      the caption is ''Foreign Currency'' and the content name is ''Foreign currency''. The owner decided on 15 October that
-      debt and foreign currency stay internal under Money, at least through the cutover, and are hidden if they confuse, so
-      the top-bar caption may go.'
+      the caption and the content name are both ''Foreign currency''. The owner decided on 15 October that debt and foreign
+      currency stay internal under Money, at least through the cutover, and are hidden if they confuse, so the top-bar caption
+      may go.'
     he: No change proposed. The reviewer confirms 'מטבע חוץ'.
     reasons:
     - The UI uses it in two places and the Hebrew matches.
@@ -1234,7 +1231,7 @@ concepts:
   status: preferred
   category: game-system
   definition: The player's split of spending across ministries, one line per office. The player changes the shares, submits
-    the budget at End Turn, and where a legislature must approve it, the submission goes to a vote.
+    the budget at End turn, and where a legislature must approve it, the submission goes to a vote.
   scope:
   - ui
   - docs
@@ -1249,7 +1246,7 @@ concepts:
       where: strings.en.yaml budget.submit
     - form: 'Changed: submit to put it to the vote'
       where: strings.en.yaml budget.unsaved
-    - form: 'Submitted: takes effect at End Turn'
+    - form: 'Submitted: takes effect at End turn'
       where: strings.en.yaml budget.queued
     - form: Taxes {0}, spending {1} and reserve call-up {2} a year
       where: strings.en.yaml budget.flow
@@ -1529,15 +1526,15 @@ concepts:
       where: strings.he.yaml defence.command
     - form: 'title_he: "ראש המטה הכללי"'
       where: content/offices.yaml
-    - form: 'title_he: ''רמטכ"ל ההגנה'''
+    - form: 'title_he: ''רמטכ״ל ההגנה'''
       where: content/offices.yaml
   recommendation:
     en: Keep the short form on the Defence screen. Use the content title when an event names the office, so the Haganah and
       the IDF titles stay distinct.
-    he: Three Hebrew forms now exist. The Defence screen says 'הרמטכ״ל' (typographic gershayim), the content titles the IDF
-      post 'ראש המטה הכללי', and the Haganah post 'רמטכ"ל ההגנה' with a straight quote. The comment in offices.yaml lists
-      two open owner questions, one of them whether the IDF title adds 'של צה"ל'. The gershayim character should be one choice
-      across strings and content.
+    he: 'Three Hebrew forms exist. The Defence screen says ''הרמטכ״ל'', the content titles the IDF post ''ראש המטה הכללי'',
+      and the Haganah post ''רמטכ״ל ההגנה''. Since #630 the gershayim is the typographic ״ in the strings and in the content,
+      so the earlier mismatch is closed. The comment in offices.yaml lists two open owner questions, one of them whether the
+      IDF title adds ''של צה״ל''.'
     reasons:
     - The content already separates the Haganah and the IDF post, and the UI label does not.
   decision_owner: Eyal
@@ -1553,7 +1550,7 @@ concepts:
     preferred: Public support
     avoid: []
     in_use:
-    - form: Public Support
+    - form: Public support
       where: strings.en.yaml hud.caption.support
     - form: Support = Points(EffectsSystem.Approval(c, s)
       where: (git grep)
@@ -1562,7 +1559,7 @@ concepts:
     - form: approval appears as Public support
       where: docs/gdd/cutover-resource-layer.md
     options:
-    - Public Support
+    - Public support
     - Public support
     - Approval
   he:
@@ -1584,7 +1581,7 @@ concepts:
 - id: order
   status: contested
   category: game-system
-  definition: 'An action the player gives that takes effect at End Turn: appointing a minister, changing a policy, raising
+  definition: 'An action the player gives that takes effect at End turn: appointing a minister, changing a policy, raising
     the security level, submitting the budget. Each kind costs attention.'
   scope:
   - ui
@@ -1594,9 +1591,9 @@ concepts:
     preferred: order
     avoid: []
     in_use:
-    - form: 'Ordered: {0} to {1}, at End Turn'
+    - form: 'Ordered: {0} to {1}, at End turn'
       where: strings.en.yaml cabinet.queued
-    - form: 'Ordered: {0}, at End Turn'
+    - form: 'Ordered: {0}, at End turn'
       where: strings.en.yaml info.queued
     - form: 'Ordered: level {0} to {1}'
       where: strings.en.yaml defence.order
@@ -1604,7 +1601,7 @@ concepts:
       where: strings.en.yaml order.invalid
     - form: 'Your order: {0}'
       where: strings.en.yaml outcome.order
-    - form: 'Submitted: takes effect at End Turn'
+    - form: 'Submitted: takes effect at End turn'
       where: strings.en.yaml budget.queued
     - form: 'attention_cost: { set_policy: 1, allocate_budget: 2, choose_event_option: 1, set_mobilization: 1, security_order:
         1, appoint: 2, map_action: 1 }'
@@ -1627,7 +1624,7 @@ concepts:
     he: '''פקודה'' is a command word. The reviewer decides whether it suits civil actions such as appointing a minister, or
       whether another word is better there.'
     reasons:
-    - The same End Turn mechanic reads as 'Ordered' in some strings and 'Submitted' in one.
+    - The same End turn mechanic reads as 'Ordered' in some strings and 'Submitted' in one.
     - Every order costs attention, so the player has a reason to know which actions are orders.
   decision_owner: Eyal; native reviewer
 - id: era-and-chapter

@@ -1,7 +1,7 @@
-# Hebrew localisation guide for Statecraft: Israel (draft v0.2)
+# Hebrew localisation guide for Statecraft: Israel (draft v0.3)
 
 Status: DRAFT for discussion. Not approved by the maintainer. **No rule here is final until a native Hebrew reviewer has signed it off.** Hebrew in this draft has been reviewed by a non-native reader and not finalised.
-Date: 15 October 2026. Evidence date: strings snapshot of `upstream/main` 50ba5d5c, 15 October 2026 (218 keys in each language).
+Date: 15 October 2026. Evidence date: strings snapshot of `upstream/main` 835760f5, 15 October 2026 (222 keys in each language). Version 0.2 used 50ba5d5c and version 0.1 the 14 October snapshot (141 keys). The maintainer's #630, merged on 15 October, made the gershayim one character across strings and content (HE-06) and took the id out of `order.unknown`; the owner's rule for `*_review: agent-checked` flags on Hebrew names landed the same day (HE-12). The maintainer's Hebrew UI work (#550), `?lang=he` preview (#506), direction marks round inserted values (#543) and sourced Hebrew content names (#558) landed in between and settled several points that v0.1 listed as open; those are marked as settled below.
 
 This guide covers how Hebrew is written and displayed in the game and its surfaces. It builds on the English UI microcopy guide and the glossary. It does not cover event card prose, which exists in English only today (HE-12).
 
@@ -16,7 +16,7 @@ Rule status legend: **observed** (already the practice), **proposed** (new), **m
 
 ## Where the Hebrew stands today (checked facts)
 
-- `strings.he.yaml` has 218 keys, the same keys and placeholders as `strings.en.yaml`, and repo tests enforce this (HE-01). The game loads the Hebrew strings only when Hebrew is asked for by hand: `?lang=he` on the web and `-lang he` on the desktop, with no visible switch yet (the file header; #193, #506). Eyal's 13 October status on #193 said the Hebrew font and right-to-left layout exist.
+- `strings.he.yaml` has 222 keys, the same keys and placeholders as `strings.en.yaml`, and repo tests enforce this (HE-01). The game loads the Hebrew strings only when Hebrew is asked for by hand: `?lang=he` on the web and `-lang he` on the desktop, with no visible switch yet (the file header; #193, #506). Eyal's 13 October status on #193 said the Hebrew font and right-to-left layout exist.
 - Each text takes its direction from its own first letter, and a repo test checks it. The same test notes that the date is still English (#55).
 - Dates, money, names and content still arrive in English from the simulation's formatter, so a Hebrew line can contain "15 May 1948" or "IL 18.6m" (the file header says so). One part is now localised: the twelve month names and two date patterns exist in Hebrew (`date.*`, used by the map's control captions).
 - Since #543 `UiText.Format` puts an invisible left-to-right mark (U+200E) on both sides of each value it inserts into a Hebrew pattern, unless the value already contains Hebrew. An English date, an amount or a minus sign then reads as one run.
@@ -31,7 +31,7 @@ Use when writing or reviewing Hebrew for Statecraft: Israel. Never present a pro
 3. Do not use the masculine imperative or slash forms. Prefer an action noun, "יש ל...", a word ending in ך or ת, or a neutral first person (HE-03).
 4. Write counts as "Label: N". Do not build sentences whose wording changes with the number (HE-04).
 5. Full spelling (ktiv male) for modern text (HE-05).
-6. Punctuation is ASCII, as in English. Acronyms take gershayim before the last letter. Pick one gershayim character and use it everywhere (HE-06).
+6. Punctuation is ASCII, as in English. Acronyms take gershayim before the last letter. Use the typographic gershayim ״ (U+05F4) everywhere, in strings and in content (HE-06, settled in #630).
 7. A prefix before a numeral or Latin letters takes a maqaf, per the Academy (HE-07).
 8. Digits are Latin. Do not type dates or money into a string. Month names come from the `date.*` keys; money is not yet localised (HE-08).
 9. Inserted values are wrapped in direction marks by the UI (#543). Static Hebrew text has no Latin letters, names included. Do not put a colon or bracket directly after a Latin word typed in a Hebrew sentence without checking the display. Preview with `?lang=he` (HE-09).
@@ -82,9 +82,9 @@ For the native reviewer: confirm full spelling for all UI text, and decide the s
 ### HE-06 Punctuation
 Status: proposed, native.
 - Hebrew uses ASCII punctuation: full stop, comma, question mark, exclamation mark and colon work as in English, and the question mark is not mirrored (r12a).
-- Acronyms take gershayim before the last letter, for example "הרמטכ״ל" and "האו״ם". The correct character is the typographic gershayim ״ (U+05F4); a straight quote is a common substitute because of keyboards, and r12a notes it sits too high (r12a). The Academy's own examples use the straight quote and do not discuss the typographic character. All four strings that have gershayim already use ״ (`defence.command`, `defence.ceasefire`, `defence.ceasefire_stops`, `defence.ceasefire_starts`), so the file is consistent. The abbreviation mark geresh is the typographic ׳ (U+05F3), in "מס׳ 1" (`start.source`) and in `info.hex`. Recommendation: keep ״ and ׳, record them as the rule, and fix any exception.
-- Quotation marks are not paired. In principle ” opens and closes and ’ nests, but straight quotes are common in practice (r12a). The strings contain no double quotation marks. One places straight single quotes around a placeholder: "{0} לא מוכר: '{1}'" (`order.unknown`), where the quoted value is a raw id (UI-07). Choose one style before content needs it.
-- The content now has a straight quote where the strings have the typographic character: the Haganah post is given as רמטכ"ל ההגנה in `content/offices.yaml`, four party names are given as מפא"י, מפ"ם, מק"י and הצה"ר in `content/parties.yaml`, and the Defence screen says הרמטכ״ל. One character should be chosen for strings and content alike.
+- Acronyms take gershayim before the last letter, for example "הרמטכ״ל" and "האו״ם". The correct character is the typographic gershayim ״ (U+05F4); a straight quote is a common substitute because of keyboards, and r12a notes it sits too high (r12a). The Academy's own examples use the straight quote and do not discuss the typographic character. All four strings that have gershayim already use ״ (`defence.command`, `defence.ceasefire`, `defence.ceasefire_stops`, `defence.ceasefire_starts`), so the file is consistent. The abbreviation mark geresh is the typographic ׳ (U+05F3), in "מס׳ 1" (`start.source`) and in `info.hex`. Recommendation: keep ״ and ׳ as the rule. It has been the practice in both the strings and the content since #630; the native reviewer confirms it.
+- Quotation marks are not paired. In principle ” opens and closes and ’ nests, but straight quotes are common in practice (r12a). The strings contain no double quotation marks. The one string that put straight single quotes around a placeholder, `order.unknown`, no longer does: since #630 it reads "{0} לא מוכר" and shows no id (UI-07). No string quotes a value now. Choose one style before content needs it.
+- #630 made the content match the strings. `content/offices.yaml` gives the Haganah post as רמטכ״ל ההגנה, and a scan of `content/parties.yaml` and `content/offices.yaml` found no straight quote inside a Hebrew word. The strings and the content now use ״ alike. The #630 description also lists a title and one person's name; those were not re-checked here.
 For the native reviewer: confirm ״ and choose a quotation style.
 
 ### HE-07 Maqaf
@@ -122,7 +122,7 @@ Status: observed in English, proposed for Hebrew. The English file has no "left"
 Check: a pattern search over the strings files.
 
 ### HE-12 Content text (events, units, names)
-Status: maintainer (#55). Event text and unit labels arrive in English today. Names of offices, parties, governments, legislatures and places have sourced Hebrew forms in the content since #558, but only the places' names are read by the UI so far. If content is localised, the same rules apply: every historical claim keeps its sources, no quote is invented, and Hebrew names of people and places are checked against a source and not guessed. Sensitive events need review by a native reader and the existing sensitivity review, in addition to the historian review.
+Status: maintainer (#55). Event text and unit labels arrive in English today. Names of offices, parties, governments, legislatures and places have sourced Hebrew forms in the content since #558, but only the places' names are read by the UI so far. Since 15 October a Hebrew display name that an agent has checked against its sources and no person has read carries its own flag beside it, `name_he_review`, `title_he_review`, `title_he_f_review` or `body_he_review: agent-checked`. The native reviewer removes the line once they have read the name (CONTENT_POLICY section 2, rule 6; #564). If content is localised, the same rules apply: every historical claim keeps its sources, no quote is invented, and Hebrew names of people and places are checked against a source and not guessed. Sensitive events need review by a native reader and the existing sensitivity review, in addition to the historian review.
 For the maintainer: whether and when content gets Hebrew, and who reviews it.
 
 ### HE-13 Tone
