@@ -24,6 +24,24 @@ Too vague. Not informative enough. Not enough story. Lines like "the lake was in
 
 That feedback is now a rule: **explain first, then evoke** (`references/02-voice-tone-style.md`), and a script must pass the **cold-viewer test**.
 
+## What the finished video carries besides the voice
+
+The supplied script is the voice track only. The finished promo, "The Long Way South", carries more than the voice, so the voice file alone makes the story look vaguer than the video is. The maintainer described the other channels in #639 [M]. This description has not been checked against the video file.
+
+| Channel | What it carries |
+|---|---|
+| Voice | the lines above, from an ElevenLabs premade voice, cut to bars of 0.667 seconds |
+| On-screen captions | "Jerusalem, May 1948: the pumps stopped, water rationed"; "Kibbutz Negba, 1948"; "about 150 shells hit its water tower" |
+| Decision cards, shown and not spoken | Operation Yoav, Hula, Water for Jordan, Jordan Canal 1953, Desalinating the Sea 2002 |
+| Not voiced at all | the Declaration of Independence card |
+
+What this changes:
+
+- D3 and D4 below were judged on the voice alone. The caption gives Negba a date and a figure on screen [A], but the figure "about 150 shells" has no source yet [GAP]. It needs one before it is shown or spoken again.
+- The cards carry the real decisions, and nobody explains them. A viewer who knows nothing sees five card titles and hears none of them. That is the strongest reason for D9.
+- A viewer with the sound off loses the voice and keeps the captions and cards. A viewer with the sound on and no time to read loses the captions. Each channel must carry what the viewer needs, and the voice must not depend on a card to be understood.
+- A captions-and-cards table, with what each carries at each time, is the right unit for a script like this one. The shot table (`templates/script-template.md`) already has the columns for it.
+
 ## Diagnosis
 
 | Id | The line | Why it fails for a cold viewer | Rule |

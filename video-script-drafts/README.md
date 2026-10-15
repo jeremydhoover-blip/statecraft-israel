@@ -1,8 +1,22 @@
-# Video script skill (draft, proposed in #639)
+# Video script skill (version 0.2, draft, proposed in #639)
 
 A starter for a `statecraft-video-script` skill: the style, tone, voice, language, terminology, storytelling and sourcing rules for video scripts and narration, written so that a script does not have to be invented from nothing each time and does not read like a generic AI script.
 
-Status: draft. Published only as a folder on a fork branch, linked from issue #639. Not proposed as a PR until the maintainer answers.
+Status: version 0.2, draft. Published as a folder on a fork branch, linked from issue #639. The maintainer has answered the location, order and AI narrator questions (below). The trailer quote source sheet goes first as its own small PR, and this skill follows it into `.github/skills/statecraft-video-script/`.
+
+## Decisions from the maintainer (#639, 15 October 2026)
+
+- Location: `.github/skills/statecraft-video-script/`, beside `statecraft-writing-voice`.
+- Order: the trailer quote source sheet first (source URL, date, verbatim, excerpt or paraphrase, translator for English and Hebrew), then this skill.
+- An AI narrator is allowed. It speaks in its own voice, it is disclosed, and it never speaks as a real person.
+- Narration and captions are in English and Hebrew. A native reviewer finalises the Hebrew (#564).
+- The real script to test against is promo 3, "The Long Way South": an ElevenLabs premade voice, with on-screen captions and decision cards that the voice does not speak.
+
+## What changed from version 0.1
+
+- `references/06-ai-voice-music-and-disclosure.md`: the narrator question is answered; the open questions are now two.
+- `examples/case-study-before-after.md`: a new section says what the finished video carries in captions and cards, so the voice-only diagnosis is not read as a verdict on the whole video.
+- Line endings are LF.
 
 ## What is here
 
@@ -47,11 +61,11 @@ A real narrated script was run through the draft. The maintainers' feedback was:
 ## Known gaps before this could be a PR
 
 1. More real scripts from the existing narrated videos. One has been tested; the rest are not in the repo. Each real script should be run through the checker and the cold-viewer test, and the rules adjusted.
-2. The maintainer's answers to the five questions in #639 and a decision on the audience segments.
+2. The maintainer's answer on the audience segments and on voice inside the game itself. The other questions in #639 are answered (see above).
 3. A native Hebrew reviewer for the Hebrew rules and the pronunciation list.
 4. The trailer's quote source sheet (the first worked case for `templates/quote-source-sheet.md`).
-5. Convert line endings to LF and add a CHANGELOG line only if the maintainer wants the skill under `.github/`.
+5. Add a CHANGELOG line only if the maintainer wants one for a skill under `.github/`, and run `uv run scripts/oss/check_repo.py` and `uv run scripts/oss/md_links.py` on the PR branch.
 
-## Where it could live
+## Where it lives
 
-Option A: `.github/skills/statecraft-video-script/`, next to the writing-voice skill. Option B: `docs/WRITING_VIDEO.md` with the templates under `docs/`. Question 1 in #639.
+`.github/skills/statecraft-video-script/`, as the maintainer decided in #639.

@@ -1,6 +1,6 @@
 # 06 AI voice, music and disclosure
 
-Status: DRAFT. Tags: [V] already in the repo, [H] proposal, [Q] question for the maintainer.
+Status: DRAFT, version 0.2. Tags: [V] already in the repo, [H] proposal, [Q] question for the maintainer, [M] answered by the maintainer in #639 on 15 October 2026.
 
 ## What the repo says today
 
@@ -23,11 +23,16 @@ Status: DRAFT. Tags: [V] already in the repo, [H] proposal, [Q] question for the
 8. **Keep the policy text in step.** If a video adds synthetic voice or music, the README AI-use section, the Steam draft and `docs/ai-disclosure.md` change in the same PR.
 9. **Do not generate a voice of a real person to read a quote.** Show the quote as text with its source.
 
-## Questions for the maintainer [Q]
+## Maintainer answers [M]
 
-- Is an AI narrator allowed at all? If yes, which tools and which terms apply to voice, as D-M does for music?
+- An AI narrator is allowed. It narrates in its own voice, it is disclosed, and it never narrates as a real person. This matches rules 1 and 3 above.
+- Narration and captions are in English and Hebrew. A native reviewer finalises the Hebrew, tracked in #564. This matches rule 5 above.
+- The promo 3 video, "The Long Way South", uses an ElevenLabs premade voice. That voice and its terms need an `ASSETS.yaml` row and a line in `docs/ai-disclosure.md` as rule 4 describes. [Q] whether those rows exist yet.
+
+## Still open [Q]
+
+- Which tools and which terms apply to voice, as D-M does for music? The maintainer has allowed an ElevenLabs premade voice for promo 3; a general policy is not written.
 - Is voice allowed in the game itself, or only in promotional video?
-- Who signs off a Hebrew voice?
 
 ## What goes in the `ASSETS.yaml` row
 

@@ -8,7 +8,7 @@ disable-model-invocation: false
 
 # Statecraft video script
 
-DRAFT starter, proposed in issue #639. Nothing here is adopted until the maintainer says so.
+Version 0.2, draft, proposed in issue #639. The maintainer has chosen this location (`.github/skills/statecraft-video-script/`) and allowed a disclosed AI narrator. Everything else is a proposal until the maintainer says so.
 
 This skill extends `statecraft-writing-voice` to spoken and edited video. It keeps the same voice (direct, grounded, sober) and the same rules (every fact sourced, no invented quotes, the Israeli framing in `docs/CONTENT_POLICY.md` section 1). It adds what a script needs that a decision card does not: a viewer who may be watching with no sound, a voice that is heard once and cannot be re-read, picture and words that must carry different information, and captions in two languages.
 
